@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/parqueadero_web_php/vistas/servicio_listar.php</file>
+            <file>file:/C:/xampp/htdocs/parqueadero_web_php/vistas/header.php</file>
+            <file>file:/C:/xampp/htdocs/parqueadero_web_php/vistas/tarifa_listar.php</file>
+            <file>file:/C:/xampp/htdocs/parqueadero_web_php/clientes_crear.php</file>
+            <file>file:/C:/xampp/htdocs/parqueadero_web_php/tarifas.php</file>
+            <file>file:/C:/xampp/htdocs/parqueadero_web_php/vistas/cliente_crear.php</file>
+        </group>
     </open-files>
 </project-private>
