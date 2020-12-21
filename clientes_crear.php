@@ -13,8 +13,6 @@ $cliente_modelo = new Cliente_modelo();
 $vehiculo_modelo = new Vehiculo_modelo();
 $validaciones = new Validaciones();
 
- 
-
 //variables
 $numero_documento = '';
 $nombre = '';
@@ -93,14 +91,14 @@ if ($metodo == 'POST') {
     }
 
     //crear nuevo cliente
-    $id_cliente = $cliente_modelo->insert_id(array(
+    $cliente_id = $cliente_modelo->insert_id(array(
         "numero_documento" => $numero_documento,
         "nombre" => $nombre,
         "apellidos" => $apellidos
     ));
 
     //crear vehiculo
-    $resultado = $vehiculo_modelo->insert($id_cliente, array(
+    $resultado = $vehiculo_modelo->insert($cliente_id, array(
         "placa" => $placa,
         "tipo" => $tipo
     ));

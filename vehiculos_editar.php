@@ -52,7 +52,7 @@ if ($metodo == 'POST') {
     }
 
     //no se puede editar vehiculo en parqueadero
-    $registro = $parqueadero_modelo->select_id_vehiculo($id);
+    $registro = $parqueadero_modelo->select_vehiculo_id($id);
     if (count($registro) > 0) {
         $errores[] = 'No se puede actualizar el registro';
     }

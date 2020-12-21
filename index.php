@@ -43,7 +43,7 @@ switch ($metodo) {
             $vehiculo = $vehiculo_modelo->select_placa($placa);
             if (count($vehiculo) > 0) {
                 //verificar que el vehiculo no este en servicio
-                $registro = $parqueadero_modelo->select_id_vehiculo($vehiculo[0]['id']);
+                $registro = $parqueadero_modelo->select_vehiculo_id($vehiculo[0]['id']);
 
                 if (count($registro) == 0) {
                     //buscar tipo de vehiculo
@@ -110,8 +110,8 @@ switch ($metodo) {
 
             if (count($vehiculo) > 0) { //si existe la placa
                 //validar que la placa no este en servicio
-                $id_vehiculo = $vehiculo[0]['id'];
-                $registro = $parqueadero_modelo->select_id_vehiculo($id_vehiculo);
+                $vehiculo_id = $vehiculo[0]['id'];
+                $registro = $parqueadero_modelo->select_vehiculo_id($vehiculo_id);
 
                 if (count($registro) == 0) {
                     //validar que el parqueadero este disponible
@@ -141,7 +141,7 @@ switch ($metodo) {
                             'hora_entrada' => $hora_entrada,
                             'valor_minuto' => $valor_minuto,
                             'estado' => "Activo",
-                            'id_vehiculo' => $id_vehiculo,
+                            'vehiculo_id' => $vehiculo_id,
                             'parqueadero' => $parqueadero,
                         );
 
@@ -152,7 +152,7 @@ switch ($metodo) {
                         $resultado = $parqueadero_modelo->update(array(
                             'parqueadero' => $parqueadero,
                             'estado' => "No disponible",
-                            'id_vehiculo' => $id_vehiculo,
+                            'vehiculo_id' => $vehiculo_id,
                         ));
 
                         $respuestas = "Servicio registrado";
@@ -186,10 +186,10 @@ switch ($metodo) {
                 $errores[] = "Placa no registrada";
             }
             //buscar id del vehiculo
-            $id_vehiculo = $vehiculo[0]['id'];
+            $vehiculo_id = $vehiculo[0]['id'];
 
             //verificar si el vehiculo esta en servicio 
-            $registro = $parqueadero_modelo->select_id_vehiculo($id_vehiculo);
+            $registro = $parqueadero_modelo->select_vehiculo_id($vehiculo_id);
             if (count($registro) == 0) {
                 $errores[] = "Vehiculo no esta en servicio";
             }
@@ -203,7 +203,7 @@ switch ($metodo) {
 
 
             //buscar servicio 
-            $servicio = $servicio_modelo->select_activo_id_vehiculo($id_vehiculo);
+            $servicio = $servicio_modelo->select_activo_vehiculo_id($vehiculo_id);
 
             //hora_entrada
             $hora_entrada = $servicio[0]['hora_entrada'];
@@ -254,7 +254,7 @@ switch ($metodo) {
             $resultado = $parqueadero_modelo->update(array(
                 'parqueadero' => $servicio[0]['parqueadero'],
                 'estado' => "Disponible",
-                'id_vehiculo' => null,
+                'vehiculo_id' => null,
             ));
 
             $respuestas = "Servicio terminado";
@@ -303,13 +303,13 @@ switch ($metodo) {
                 $resultado = $parqueadero_modelo->update(array(
                     'parqueadero' => $parqueadero_viejo,
                     'estado' => 'Disponible',
-                    'id_vehiculo' => NULL,
+                    'vehiculo_id' => NULL,
                 ));
                 //actualizar parqueadero nuevo
                 $resultado = $parqueadero_modelo->update(array(
                     'parqueadero' => $parqueadero_nuevo,
                     'estado' => 'No disponible',
-                    'id_vehiculo' => $registro_viejo[0]['id_vehiculo'],
+                    'vehiculo_id' => $registro_viejo[0]['vehiculo_id'],
                 ));
 
                 //actualizar servicio
@@ -324,13 +324,13 @@ switch ($metodo) {
                 $resultado = $parqueadero_modelo->update(array(
                     'parqueadero' => $parqueadero_viejo,
                     'estado' => 'No disponible',
-                    'id_vehiculo' => $registro_nuevo[0]['id_vehiculo'],
+                    'vehiculo_id' => $registro_nuevo[0]['vehiculo_id'],
                 ));
 
                 $resultado = $parqueadero_modelo->update(array(
                     'parqueadero' => $parqueadero_nuevo,
                     'estado' => 'No disponible',
-                    'id_vehiculo' => $registro_viejo[0]['id_vehiculo'],
+                    'vehiculo_id' => $registro_viejo[0]['vehiculo_id'],
                 ));
 
                 $servicio_a = $servicio_modelo->select_activo_parqueadero($parqueadero_viejo);
@@ -379,11 +379,11 @@ function cliente($array_vehiculo)
         //verificar si el parqueadero esta ocupado
         if ($array_vehiculo[$i]['estado'] == "No disponible") {
             //buscar id del vehiculo parqueado
-            $id_vehiculo = $array_vehiculo[$i]['id_vehiculo'];
+            $vehiculo_id = $array_vehiculo[$i]['vehiculo_id'];
             //crear objeto vehiculo
             $vehiculo_modelo = new Vehiculo_modelo();
             //buscar informacion del dueño del vehiculo
-            $registro = $vehiculo_modelo->select_cliente($id_vehiculo);
+            $registro = $vehiculo_modelo->select_cliente($vehiculo_id);
             //colocar placa
             $array_vehiculo[$i]['placa'] = $registro[0]['placa'];
             //llenar datos del cliente

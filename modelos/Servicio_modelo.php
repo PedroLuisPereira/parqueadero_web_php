@@ -21,7 +21,7 @@ class Servicio_modelo
                             vehiculos.placa
                 FROM servicios
                 INNER JOIN vehiculos
-                ON servicios.id_vehiculo = vehiculos.id
+                ON servicios.vehiculo_id = vehiculos.id
                 ORDER BY servicios.estado, servicios.id DESC";
         $resultado = $this->conexion->getDatos($query);
         return $resultado;
@@ -41,7 +41,7 @@ class Servicio_modelo
                             vehiculos.placa
                 FROM servicios
                 INNER JOIN vehiculos
-                ON servicios.id_vehiculo = vehiculos.id
+                ON servicios.vehiculo_id = vehiculos.id
                 ORDER BY servicios.estado, servicios.id DESC  
                 LIMIT $inicio, $cantidad;";
         $resultado = $this->conexion->getDatos($query);
@@ -55,16 +55,16 @@ class Servicio_modelo
         return $resultado;
     }
     
-    public function select_id_vehiculo($id_vehiculo)
+    public function select_vehiculo_id($vehiculo_id)
     {
-        $query = "SELECT * FROM servicios WHERE id_vehiculo = $id_vehiculo";
+        $query = "SELECT * FROM servicios WHERE vehiculo_id = $vehiculo_id";
         $resultado = $this->conexion->getDatos($query);
         return $resultado;
     }
 
-    public function select_activo_id_vehiculo($id_vehiculo)
+    public function select_activo_vehiculo_id($vehiculo_id)
     {
-        $query = "SELECT * FROM servicios WHERE estado = 'Activo' AND id_vehiculo = $id_vehiculo";
+        $query = "SELECT * FROM servicios WHERE estado = 'Activo' AND vehiculo_id = $vehiculo_id";
         $resultado = $this->conexion->getDatos($query);
         return $resultado;
     }
@@ -87,10 +87,10 @@ class Servicio_modelo
         $valor_minuto = $datos['valor_minuto'];
         $estado = $datos['estado'];
         $parqueadero = $datos['parqueadero'];
-        $id_vehiculo = $datos['id_vehiculo'];
+        $vehiculo_id = $datos['vehiculo_id'];
 
-        $query = "INSERT INTO servicios (hora_entrada,valor_minuto, estado,parqueadero,id_vehiculo)
-                VALUES ('$hora_entrada',$valor_minuto,'$estado','$parqueadero','$id_vehiculo');";
+        $query = "INSERT INTO servicios (hora_entrada,valor_minuto, estado,parqueadero,vehiculo_id)
+                VALUES ('$hora_entrada',$valor_minuto,'$estado','$parqueadero','$vehiculo_id');";
         $resultado = $this->conexion->setDatos($query);
         return $resultado;
     }

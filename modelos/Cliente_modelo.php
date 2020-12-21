@@ -54,26 +54,24 @@ class Cliente_modelo {
      * insert
      *
      * @param  mixed $datos
-     * @return void
+     * @return Int 
      */
     public function insert($datos) {
         $numero_documento = $datos->numero_documento;
         $nombre = $datos->nombre;
         $apellidos = $datos->apellidos;
-        $placa = $datos->placa;
-        $tipo = $datos->tipo;
 
         $query = "INSERT INTO clientes (numero_documento, nombre, apellidos)
          VALUES ('$numero_documento', '$nombre' , '$apellidos');";
-        $id_cliente = $this->conexion->setDatosId($query);
-        
+        $registros = $this->conexion->setDatosId($query);
+        return $registros;
     }
 
     /**
      * crearId
      *
      * @param  mixed $datos
-     * @return void
+     * @return Int
      */
     public function insert_id($datos) {
         $numero_documento = $datos['numero_documento'];
@@ -81,8 +79,8 @@ class Cliente_modelo {
         $apellidos = $datos['apellidos'];
         $query = "INSERT INTO clientes (numero_documento, nombre, apellidos)
          VALUES ('$numero_documento', '$nombre' , '$apellidos');";
-        $id_cliente = $this->conexion->setDatosId($query);
-        return $id_cliente;
+        $cliente_id = $this->conexion->setDatosId($query);
+        return $cliente_id;
     }
 
     /**

@@ -1,3 +1,6 @@
+CREATE DATABASE `parqueadero`;
+use `parqueadero`;
+
 CREATE TABLE `clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `numero_documento` VARCHAR(50) NOT NULL,
@@ -12,11 +15,26 @@ CREATE TABLE `vehiculos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` VARCHAR(50) NOT NULL,
   `placa` VARCHAR(50) NOT NULL,
-  `id_cliente` int(11) NOT NULL,
+  `cliente_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `placa` (`placa`),
-  FOREIGN KEY (id_cliente) REFERENCES clientes(id)
+  FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 )COLLATE='utf8mb4_general_ci';
+
+CREATE TABLE `servicios` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `hora_entrada` DATETIME NOT NULL,
+    `hora_salida` DATETIME,
+    `minutos` int NOT NULL DEFAULT 0,
+    `valor_minuto` DOUBLE NOT NULL DEFAULT 0,
+    `total` DOUBLE NOT NULL DEFAULT 0,
+    `estado` VARCHAR(50) NOT NULL,
+    `parqueadero` VARCHAR(50) NOT NULL,
+    `vehiculo_id` INT NOT NULL,
+     PRIMARY KEY (`id`),
+     FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id)
+)
+COLLATE='utf8mb4_general_ci';
 
 CREATE TABLE `tarifas` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -29,28 +47,12 @@ CREATE TABLE `tarifas` (
 )
 COLLATE='utf8mb4_general_ci';
 
-CREATE TABLE `servicios` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `hora_entrada` DATETIME NOT NULL,
-    `hora_salida` DATETIME,
-    `minutos` int NOT NULL DEFAULT 0,
-    `valor_minuto` DOUBLE NOT NULL DEFAULT 0,
-    `total` DOUBLE NOT NULL DEFAULT 0,
-    `estado` VARCHAR(50) NOT NULL,
-    `parqueadero` VARCHAR(50) NOT NULL,
-    `id_vehiculo` INT NOT NULL,
-     PRIMARY KEY (`id`),
-     FOREIGN KEY (id_vehiculo) REFERENCES vehiculos(id)
-)
-COLLATE='utf8mb4_general_ci';
-
-
 CREATE TABLE `parqueaderos` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `estado` VARCHAR(50) NOT NULL DEFAULT "Disponible",
     `tipo` VARCHAR(50) NOT NULL,
     `parqueadero` VARCHAR(50) NOT NULL,
-    `id_vehiculo` INT,
+    `vehiculo_id` INT,
     PRIMARY KEY (`id`)
 )
 COLLATE='utf8mb4_general_ci';
@@ -66,24 +68,24 @@ CREATE TABLE `usuarios` (
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `correo` (`correo`) USING BTREE
 )
-COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+COLLATE='utf8mb4_general_ci' ENGINE=INNODB;
 
 CREATE TABLE `tokens` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `token` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
     `emitido` TIMESTAMP NOT NULL COLLATE 'utf8mb4_general_ci',
     `expiracion` TIMESTAMP NOT NULL COLLATE 'utf8mb4_general_ci',
-    `id_usuario` INT(11) NOT NULL COLLATE 'utf8mb4_general_ci',
+    `usuario_id` INT(11) NOT NULL COLLATE 'utf8mb4_general_ci',
     PRIMARY KEY (`id`) USING BTREE,
-    INDEX `id_usuario` (`id_usuario`) USING BTREE,
-    CONSTRAINT `tokens_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT
+    INDEX `usuario_id` (`usuario_id`) USING BTREE,
+    CONSTRAINT `tokens_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON UPDATE RESTRICT ON DELETE RESTRICT
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB;
 
 /* usuario administrador, contra = 123456 */ 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`,`contra`,`rol`,`estado`)
-VALUES ('1', 'Pedro Luis', 'pedro@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Administrador','Activo');
+VALUES ('1', 'Pedro Luis', 'druped@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Administrador','Activo');
 
 /*tarifas*/
 INSERT INTO `tarifas` (`id`) VALUES ('1');

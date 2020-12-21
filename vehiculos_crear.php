@@ -24,7 +24,7 @@ $metodo = $_SERVER["REQUEST_METHOD"];
 if ($metodo == 'POST') {
 
     //capturar datos
-    $id_cliente = isset($_GET['id']) ? $_GET['id'] : null;
+    $cliente_id = isset($_GET['id']) ? $_GET['id'] : null;
     $placa = isset($_POST['placa']) ? $_POST['placa'] : null;
     $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : null;
 
@@ -63,7 +63,7 @@ if ($metodo == 'POST') {
 
 
     //crear vehiculo
-    $resultado = $vehiculo_modelo->insert($id_cliente, array(
+    $resultado = $vehiculo_modelo->insert($cliente_id, array(
         "placa" => $placa,
         "tipo" => $tipo
     ));
@@ -83,10 +83,10 @@ if ($metodo == 'POST') {
 }
 
 //id del cliente
-$id_cliente = isset($_GET['id']) ? $_GET['id'] : null;
+$cliente_id = isset($_GET['id']) ? $_GET['id'] : null;
 
 // //validar que exista id del cliente
-$registro = $cliente_modelo->select_id($id_cliente);
+$registro = $cliente_modelo->select_id($cliente_id);
 if (count($registro) == 0) {
      header("Status: 301 Moved Permanently");
      header("Location:" . URL_BASE . 'error_404.php');

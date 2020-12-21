@@ -14,13 +14,13 @@ $vehiculo_modelo = new Vehiculo_modelo();
 $validaciones = new Validaciones();
 
 
-$id_cliente = isset($_GET['id']) ? $_GET['id'] : null;
+$cliente_id = isset($_GET['id']) ? $_GET['id'] : null;
 
 //limpiar id
-$id_cliente = $validaciones->limpiar($id_cliente);
+$cliente_id = $validaciones->limpiar($cliente_id);
 
 //validar que exista id del cliente
-$datos = $vehiculo_modelo->select_id_cliente($id_cliente);
+$datos = $vehiculo_modelo->select_cliente_id($cliente_id);
 if (count($datos) == 0) {
     header("Status: 301 Moved Permanently");
     header("Location:" . URL_BASE . 'error_404.php');

@@ -33,7 +33,7 @@ if (count($registro) == 0) {
 
 
 //verificar que no tenga vehiculos
-$vehiculo = $vehiculo_modelo->select_id_cliente($id);
+$vehiculo = $vehiculo_modelo->select_cliente_id($id);
 if (count($vehiculo) > 0) {
     $respuesta = "No se puede elimiar registro";
 } else {

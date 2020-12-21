@@ -23,7 +23,7 @@
         <?php endforeach; ?>
 
 
-        <form action="<?php echo URL_BASE . 'vehiculos_crear.php?id='.$id_cliente ?>" method="POST">
+        <form action="<?php echo URL_BASE . 'vehiculos_crear.php?id='.$cliente_id ?>" method="POST">
 
             <p>
                 <input name="placa" class="w3-input w3-border" value="<?php echo $placa ?>" type="text" maxlength="50" placeholder="Placa - Serial">

@@ -70,8 +70,8 @@ class Parqueadero_modelo {
         return $resultado;
     }
 
-    public function select_id_vehiculo($id_vehiculo) {
-        $query = "SELECT * FROM parqueaderos WHERE id_vehiculo = $id_vehiculo ";
+    public function select_vehiculo_id($vehiculo_id) {
+        $query = "SELECT * FROM parqueaderos WHERE vehiculo_id = $vehiculo_id ";
         $resultado = $this->conexion->getDatos($query);
         return $resultado;
     }
@@ -85,11 +85,11 @@ class Parqueadero_modelo {
     public function update($datos) {
         $parqueadero = $datos['parqueadero'];
         $estado = $datos['estado'];
-        $id_vehiculo = $datos['id_vehiculo'];
+        $vehiculo_id = $datos['vehiculo_id'];
 
         $query = "UPDATE parqueaderos SET 
         estado = '$estado', 
-        id_vehiculo = '$id_vehiculo' 
+        vehiculo_id = '$vehiculo_id' 
         WHERE  parqueadero ='$parqueadero';";
 
         $resultado = $this->conexion->setDatos($query);

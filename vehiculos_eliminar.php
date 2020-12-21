@@ -33,7 +33,7 @@ if (count($vehiculo) == 0) {
 }
 
 //verificar que no tenga servicio
-$servicio = $servicio_modelo->select_id_vehiculo($id);
+$servicio = $servicio_modelo->select_vehiculo_id($id);
 if (count($servicio) > 0) {
     $respuesta = "No se puede eliminar el registro";
 } else {
