@@ -99,7 +99,7 @@ if ($metodo == 'POST') {
 
     //crear vehiculo
     $resultado = $vehiculo_modelo->insert($cliente_id, array(
-        "placa" => $placa,
+        "placa" => strtoupper($placa),
         "tipo" => $tipo
     ));
     

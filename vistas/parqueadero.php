@@ -165,12 +165,15 @@
 </div>
 
 <script>
+    //establecer evento de tecla al campo placa
     document.getElementById("placa").addEventListener("keyup", consultar);
+    //ocultar respuestas
     document.getElementById('respuesta').style.display = 'none';
     document.getElementById('opciones').style.display = 'none';
 
     function consultar() {
-        var placa = document.getElementById("placa").value;
+        //obtener valor de la placa
+        var placa = toUpperCase(document.getElementById("placa").value);
         var respuesta = document.getElementById("respuesta");
         var opciones = document.getElementById("opciones");
         var mensaje = '';
